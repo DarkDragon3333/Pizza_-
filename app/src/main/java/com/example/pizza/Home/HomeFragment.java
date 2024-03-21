@@ -2,6 +2,7 @@ package com.example.pizza.Home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class HomeFragment extends Fragment {
                 R.id.nav_host_fragment_activity_main
         );
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
-            navController.navigate(R.id.action_navigation_dashboard_to_pizza_settings);
+            navController.navigate(R.id.action_navigation_home_to_pizza_settings);
         };
 
         return new PizzaAdapter(context, pizzas, onPizzaClickListener);

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
 
 public class Pizza_settings extends Fragment{
@@ -22,14 +23,14 @@ public class Pizza_settings extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+//TODO Сделать редактироваие pizza_setings, сделать список выбраых товаров в корзине, страницу регистрации и страницу об авторе, дозаполнить БД
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
         binding = FragmentPizzaSettingsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         binding.AddToOrder.setOnClickListener(v -> {
-            Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+            BasketViewModel viewModel = new ViewModelProvider(requireActivity()).get(BasketViewModel.class);
 
         });
 

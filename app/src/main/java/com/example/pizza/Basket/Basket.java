@@ -10,12 +10,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.pizza.Home.Pizza_settings_ViewModel;
+import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.databinding.BasketBinding;
+
+import java.util.ArrayList;
 
 public class Basket extends Fragment {
 
     private BasketBinding binding;
-    String s;
+    ArrayList<Pizza> pizzas;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -24,6 +27,8 @@ public class Basket extends Fragment {
         View root = binding.getRoot();
 
         Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+        pizzas = new ArrayList<>();
+        pizzas.addAll(viewModel.getData());
 
 
         return root;
