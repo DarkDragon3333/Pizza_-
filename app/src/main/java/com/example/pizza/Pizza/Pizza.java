@@ -1,4 +1,4 @@
-package com.example.pizza;
+package com.example.pizza.Pizza;
 
 import android.os.Parcel;
 import android.os.Parcelable;

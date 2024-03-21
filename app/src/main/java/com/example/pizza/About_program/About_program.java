@@ -1,4 +1,4 @@
-package com.example.pizza;
+package com.example.pizza.About_program;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

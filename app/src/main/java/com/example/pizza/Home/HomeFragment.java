@@ -1,4 +1,4 @@
-package com.example.pizza;
+package com.example.pizza.Home;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,6 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.pizza.Basket.Basket;
+import com.example.pizza.Pizza.Pizza;
+import com.example.pizza.Pizza.PizzaAdapter;
+import com.example.pizza.R;
 import com.example.pizza.databinding.FragmentHomeBinding;
 import java.util.ArrayList;
 
@@ -18,10 +23,7 @@ public class HomeFragment extends Fragment {
             eighteen_price, twenty_four_price, thirty_price,
             eighteen_weight, twenty_four_weight, thirty_weight;
     ArrayList<Integer> images;
-    Bundle unpackingDataBundle;
     Context context;
-    Pizza_settings pizzaSettings;
-    Basket basket;
     private FragmentHomeBinding binding;
 
     @Override
@@ -34,34 +36,16 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        InitialArrayLists();
-        unpackingDataBundle = getArguments();
-        UnpackingData();
-        CreatePizzas();
-        context = getContext();
-        PizzaAdapter pizzaAdapter = getPizzaAdapter();
-        binding.listOfPizza.setAdapter(pizzaAdapter);
-
         return root;
     }
 
     @NonNull
     private PizzaAdapter getPizzaAdapter() {
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
-            pizzaSettings = new Pizza_settings();
-            Bundle bundle = new Bundle();
 
-            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-            bundle.putString("1", Pizza.getName());
-            pizzaSettings.setArguments(bundle);
-            fragmentTransaction.replace(
-                    R.id.nav_host_fragment_activity_main,
-                    pizzaSettings
-            ).commit();
         };
 
-        PizzaAdapter pizzaAdapter = new PizzaAdapter(context, pizzas, onPizzaClickListener);
-        return pizzaAdapter;
+        return new PizzaAdapter(context, pizzas, onPizzaClickListener);
     }
 
     void InitialArrayLists(){
@@ -82,17 +66,7 @@ public class HomeFragment extends Fragment {
     }
 
     void UnpackingData(){
-        if (unpackingDataBundle != null) {
-            id = unpackingDataBundle.getStringArrayList("id");
-            name = unpackingDataBundle.getStringArrayList("name");
-            recipe = unpackingDataBundle.getStringArrayList("recipe");
-            eighteen_price = unpackingDataBundle.getStringArrayList("eighteen_price");
-            twenty_four_price = unpackingDataBundle.getStringArrayList("twenty_four_price");
-            thirty_price = unpackingDataBundle.getStringArrayList("thirty_price");
-            eighteen_weight = unpackingDataBundle.getStringArrayList("eighteen_weight");
-            twenty_four_weight = unpackingDataBundle.getStringArrayList("twenty_four_weight");
-            thirty_weight = unpackingDataBundle.getStringArrayList("thirty_weight");
-        }
+
     }
 
     void CreatePizzas(){

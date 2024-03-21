@@ -1,4 +1,4 @@
-package com.example.pizza;
+package com.example.pizza.Home;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,26 +6,17 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
-import androidx.fragment.app.FragmentResultOwner;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.pizza.databinding.FragmentHomeBinding;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
 
 public class Pizza_settings extends Fragment{
 
-    String string;
-    Bundle unpackingDataBundle;
     private FragmentPizzaSettingsBinding binding;
-    Activity activity;
-    Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,23 +29,15 @@ public class Pizza_settings extends Fragment{
         View root = binding.getRoot();
 
         binding.AddToOrder.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
-
-
+            Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+            viewModel.setData("Новые данные");
         });
 
         return root;
     }
 
     void UnpackingData(){
-        bundle = new Bundle();
-        unpackingDataBundle = getArguments();
-    }
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        activity = (Activity) context;
     }
 
 }

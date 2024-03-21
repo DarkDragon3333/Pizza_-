@@ -1,22 +1,34 @@
 package com.example.pizza;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.example.pizza.Basket.Basket;
+import com.example.pizza.Home.HomeFragment;
+import com.example.pizza.Home.Pizza_settings_ViewModel;
 import com.example.pizza.databinding.ActivityMainBinding;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements DataForBasket{
+public class MainActivity extends AppCompatActivity{
     ArrayList<String> id, name, recipe,
             eighteen_price, twenty_four_price, thirty_price,
             eighteen_weight, twenty_four_weight, thirty_weight;
     DataBasePizzaManager dataBasePizzaManager;
-    HomeFragment homeFragment;
-    Bundle goToBascketBundle;
-    Bundle data;
     private ActivityMainBinding binding;
+    private Pizza_settings_ViewModel pizzaSettingsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,45 +36,27 @@ public class MainActivity extends AppCompatActivity implements DataForBasket{
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dataBasePizzaManager = new DataBasePizzaManager(MainActivity.this);
+        pizzaSettingsViewModel = new ViewModelProvider(this).get(Pizza_settings_ViewModel.class);
 
-        goToBascketBundle = new Bundle();
+        dataBasePizzaManager = new DataBasePizzaManager(MainActivity.this);
 
         InitialArrayLists();
         InsertDataToDB();
         DataToArrayLists();
 
-        homeFragment = new HomeFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(binding.navView, navController);
 
-        PackageData();
+    }
 
-        homeFragment.setArguments(data);
-        fragmentTransaction.replace(R.id.nav_host_fragment_activity_main, homeFragment).commit();
-    }
-    public void ToFragment1(View view){
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(
-                R.id.nav_host_fragment_activity_main,
-                homeFragment
-        ).commit();
-    }
-    public void ToFragment2(View view){
-        Basket basket = new Basket();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(
-                R.id.nav_host_fragment_activity_main,
-                basket
-        ).commit();
-    }
-    public void ToFragment3(View view){
-        About_program aboutProgram = new About_program();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(
-                R.id.nav_host_fragment_activity_main,
-                aboutProgram
-        ).commit();
-    }
     void InitialArrayLists(){
         id = new ArrayList<>();
         name = new ArrayList<>();
@@ -104,46 +98,5 @@ public class MainActivity extends AppCompatActivity implements DataForBasket{
                 "1", "2", "3"
         );
     }
-    void PackageData(){
-        data = new Bundle();
-        data.putStringArrayList("id", id);
-        data.putStringArrayList("name", name);
-        data.putStringArrayList("recipe", recipe);
-        data.putStringArrayList("eighteen_price", eighteen_price);
-        data.putStringArrayList("twenty_four_price", twenty_four_price);
-        data.putStringArrayList("thirty_price", thirty_price);
-        data.putStringArrayList("eighteen_weight", eighteen_weight);
-        data.putStringArrayList("twenty_four_weight", twenty_four_weight);
-        data.putStringArrayList("thirty_weight", thirty_weight);
-    }
-
-    @Override
-    public void dataForBasket
-            (String id, String name, String recipe,
-             String eighteen_price, String twenty_four_price, String thirty_price,
-             String eighteen_weight, String twenty_four_weight, String thirty_weight) {
-
-    ArrayList<String> arrayList = new ArrayList<>();
-    arrayList.add(id);
-    arrayList.add(name);
-    arrayList.add(recipe);
-    arrayList.add(eighteen_price);
-    arrayList.add(twenty_four_price);
-    arrayList.add(thirty_price);
-    arrayList.add(eighteen_weight);
-    arrayList.add(twenty_four_weight);
-    arrayList.add(thirty_weight);
-
-    data.putStringArrayList("DataForBasket", arrayList);
-
-    Basket basket = new Basket();
-    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-    fragmentTransaction.replace(
-            R.id.nav_host_fragment_activity_main,
-            basket
-    ).commit();
-
-    }
-
 
 }

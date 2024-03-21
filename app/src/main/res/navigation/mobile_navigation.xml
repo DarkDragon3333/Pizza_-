@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.pizza.HomeFragment"
+        android:name="com.example.pizza.Home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.pizza.Basket"
+        android:name="com.example.pizza.Basket.Basket"
         android:label="@string/title_dashboard"
         tools:layout="@layout/basket" >
 
@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.pizza.About_program"
+        android:name="com.example.pizza.About_program.About_program"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" >
 

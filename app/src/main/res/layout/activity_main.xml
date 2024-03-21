@@ -20,10 +20,9 @@
         app:layout_constraintVertical_bias="0.0"
         app:navGraph="@navigation/mobile_navigation">
 
-
     </androidx.fragment.app.FragmentContainerView>
 
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,30 +32,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        android:orientation="horizontal" >
+        app:menu="@menu/bottom_nav_menu" />
 
-        <ImageButton
-            android:id="@+id/home_button"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:onClick="ToFragment1"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
 
-        <ImageButton
-            android:id="@+id/basket_button"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:onClick="ToFragment2"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-        <ImageButton
-            android:id="@+id/about_button"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:onClick="ToFragment3"
-            app:srcCompat="@drawable/ic_home_black_24dp" />
-
-    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
