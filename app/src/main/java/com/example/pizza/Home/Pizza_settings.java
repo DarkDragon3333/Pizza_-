@@ -30,7 +30,7 @@ public class Pizza_settings extends Fragment{
 
         binding.AddToOrder.setOnClickListener(v -> {
             Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
-            viewModel.setData("Новые данные");
+
         });
 
         return root;

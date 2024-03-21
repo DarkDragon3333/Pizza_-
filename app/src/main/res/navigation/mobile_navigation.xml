@@ -27,6 +27,9 @@
         android:label="@string/title_dashboard"
         tools:layout="@layout/basket" >
 
+        <action
+            android:id="@+id/action_navigation_dashboard_to_pizza_settings"
+            app:destination="@id/pizza_settings" />
     </fragment>
 
     <fragment
@@ -36,4 +39,9 @@
         tools:layout="@layout/fragment_notifications" >
 
     </fragment>
+    <fragment
+        android:id="@+id/pizza_settings"
+        android:name="com.example.pizza.Home.Pizza_settings"
+        android:label="fragment_pizza_settings"
+        tools:layout="@layout/fragment_pizza_settings" />
 </navigation>

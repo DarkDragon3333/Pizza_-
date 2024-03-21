@@ -60,7 +60,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ViewHolder>{
     //Получаем view, в которые будет вставлять данные
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView flagView;
-        TextView id, name, recipe, eighteen, twenty_four, thirty;
+        TextView name, recipe, twenty_four;
         ViewHolder(View view){
             super(view);
             flagView = view.findViewById(R.id.pizza_photo);

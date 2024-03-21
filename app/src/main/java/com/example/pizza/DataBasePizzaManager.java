@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 public class DataBasePizzaManager extends SQLiteOpenHelper {
-
-    private static String DB_PATH; // полный путь к базе данных
     private static String DB_NAME = "pizza.db";
     private static final int SCHEMA = 1; // версия базы данных
     static final String NAME_AND_PRICE = "Name_and_price",

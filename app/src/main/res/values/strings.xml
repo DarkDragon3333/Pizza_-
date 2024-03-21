@@ -1,8 +1,31 @@
 <resources>
     <string name="app_name">Pizza</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Меню</string>
+    <string name="title_dashboard">Корзина</string>
+    <string name="title_notifications">О программе</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <array name="drawable_photos">
+        <item>id1</item>
+        <item>id2</item>
+        <item>id3</item>
+        <item>id4</item>
+        <item>id5</item>
+        <item>id6</item>
+        <item>id7</item>
+        <item>id8</item>
+        <item>id9</item>
+        <item>id10</item>
+        <item>id11</item>
+        <item>id12</item>
+        <item>id13</item>
+        <item>id14</item>
+        <item>id15</item>
+        <item>id16</item>
+        <item>id17</item>
+        <item>id18</item>
+        <item>id19</item>
+        <item>id20</item>
+    </array>
 </resources>

@@ -24,9 +24,6 @@ public class Basket extends Fragment {
         View root = binding.getRoot();
 
         Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
-        viewModel.getData().observe(getViewLifecycleOwner(), newData -> {
-            binding.b.setText(newData);
-        });
 
 
         return root;

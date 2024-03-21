@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.NavOptions;
+import androidx.navigation.Navigation;
 
-import com.example.pizza.Basket.Basket;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.Pizza.PizzaAdapter;
 import com.example.pizza.R;
@@ -25,24 +30,35 @@ public class HomeFragment extends Fragment {
     ArrayList<Integer> images;
     Context context;
     private FragmentHomeBinding binding;
+    private NavController navController;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        InitialArrayLists();
+
+        Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+        pizzas.addAll(viewModel.getData());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
-
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        context = getContext();
 
+        PizzaAdapter pizzaAdapter = getPizzaAdapter();
+        binding.listOfPizza.setAdapter(pizzaAdapter);
         return root;
     }
 
     @NonNull
     private PizzaAdapter getPizzaAdapter() {
+        navController = Navigation.findNavController(
+                requireActivity(),
+                R.id.nav_host_fragment_activity_main
+        );
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
-
+            navController.navigate(R.id.action_navigation_dashboard_to_pizza_settings);
         };
 
         return new PizzaAdapter(context, pizzas, onPizzaClickListener);
@@ -60,30 +76,6 @@ public class HomeFragment extends Fragment {
         thirty_weight = new ArrayList<>();
         images = new ArrayList<>();
         pizzas = new ArrayList<>();
-
-        images.add(0, R.drawable.id_1);
-        images.add(1, R.drawable.id_2);
-    }
-
-    void UnpackingData(){
-
-    }
-
-    void CreatePizzas(){
-        for(int i = 0; i < 2; i++){
-            pizzas.add(new Pizza(
-                    id.get(i),
-                    name.get(i),
-                    recipe.get(i),
-                    images.get(i),
-                    eighteen_price.get(i),
-                    twenty_four_price.get(i),
-                    thirty_price.get(i),
-                    eighteen_weight.get(i),
-                    twenty_four_weight.get(i),
-                    thirty_weight.get(i))
-            );
-        }
     }
 
 }
