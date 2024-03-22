@@ -10,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.example.pizza.Home.HomeFragment_ViewModel;
 import com.example.pizza.Home.Pizza_settings_ViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.databinding.ActivityMainBinding;
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Pizza_settings_ViewModel pizzaSettingsViewModel =
-                new ViewModelProvider(this).get(Pizza_settings_ViewModel.class);
+        HomeFragment_ViewModel homeFragmentViewModel =
+                new ViewModelProvider(this).get(HomeFragment_ViewModel.class);
 
         dataBasePizzaManager = new DataBasePizzaManager(MainActivity.this);
 
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity{
         DataToArrayLists();
         PackingData();
 
-        pizzaSettingsViewModel.setData(pizzas);
+        homeFragmentViewModel.setData(pizzas);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

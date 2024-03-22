@@ -16,6 +16,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 
+import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.Pizza.PizzaAdapter;
 import com.example.pizza.R;
@@ -38,8 +39,9 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         InitialArrayLists();
 
-        Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
-        pizzas.addAll(viewModel.getData());
+        HomeFragment_ViewModel homeFragmentViewModel =
+                new ViewModelProvider(requireActivity()).get(HomeFragment_ViewModel.class);
+        pizzas.addAll(homeFragmentViewModel.getData());
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
@@ -58,7 +60,11 @@ public class HomeFragment extends Fragment {
                 requireActivity(),
                 R.id.nav_host_fragment_activity_main
         );
+        Pizza_settings_ViewModel pizzaSettingsViewModel =
+                new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
+            pizzaSettingsViewModel.setData(Pizza);
             navController.navigate(R.id.action_navigation_home_to_pizza_settings);
         };
 

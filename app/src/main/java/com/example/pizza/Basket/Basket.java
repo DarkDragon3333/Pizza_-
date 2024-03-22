@@ -28,7 +28,6 @@ public class Basket extends Fragment {
 
         Pizza_settings_ViewModel viewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
         pizzas = new ArrayList<>();
-        pizzas.addAll(viewModel.getData());
 
 
         return root;

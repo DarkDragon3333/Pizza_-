@@ -6,14 +6,14 @@ import com.example.pizza.Pizza.Pizza;
 
 import java.util.ArrayList;
 
-public class Pizza_settings_ViewModel extends ViewModel {
-    private Pizza data = new Pizza();
+public class HomeFragment_ViewModel extends ViewModel {
+    private ArrayList<Pizza> data = new ArrayList<>();
 
-    public void setData(Pizza newData) {
+    public void setData(ArrayList<Pizza> newData) {
         this.data = newData;
     }
 
-    public Pizza getData() {
+    public ArrayList<Pizza> getData() {
         return data;
     }
 }
