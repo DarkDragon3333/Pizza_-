@@ -66,7 +66,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ViewHolder>{
             flagView = view.findViewById(R.id.pizza_photo);
             name = view.findViewById(R.id.name_of_pizza);
             recipe = view.findViewById(R.id.tvPizzaRecipe);
-            twenty_four = view.findViewById((R.id.tvPizzaPrice));
+            twenty_four = view.findViewById((R.id.tvPizzaPrice)); //Цена, фото, имя, размер, ДЛС
         }
     }
 }

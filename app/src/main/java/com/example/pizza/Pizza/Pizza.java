@@ -12,7 +12,8 @@ public class Pizza implements Serializable {
     private String
             id, Name, Recipe,
             eighteen_price,  twenty_four_price,  thirty_price,
-            eighteen_weight,  twenty_four_weight,  thirty_weight;
+            eighteen_weight,  twenty_four_weight,  thirty_weight,
+            DLC;
     private int Picture;
 
     public Pizza() {}
@@ -32,6 +33,14 @@ public class Pizza implements Serializable {
         this.twenty_four_weight = twenty_four_weight;
         this.thirty_weight = thirty_weight;
         Picture = picture;
+    }
+
+    public String getDLC() {
+        return DLC;
+    }
+
+    public void setDLC(String DLC) {
+        this.DLC = DLC;
     }
 
     public String getId() {

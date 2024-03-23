@@ -5,6 +5,8 @@
     <string name="title_notifications">О программе</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="minus">-</string>
+    <string name="plus">+</string>
 
     <array name="drawable_photos">
         <item>id1</item>

@@ -12,7 +12,6 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.pizza.Home.HomeFragment_ViewModel;
-import com.example.pizza.Home.Pizza_settings_ViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.databinding.ActivityMainBinding;
 import java.util.ArrayList;
@@ -21,6 +20,10 @@ public class MainActivity extends AppCompatActivity{
     ArrayList<String> id, name, recipe,
             eighteen_price, twenty_four_price, thirty_price,
             eighteen_weight, twenty_four_weight, thirty_weight;
+    public ArrayList<String>
+            Name_for_basket, Size_for_basket, Price_for_basket, DLC_for_basket;
+    public ArrayList<Integer>
+            Image_for_basket;
     DataBasePizzaManager dataBasePizzaManager;
     private ActivityMainBinding binding;
     ArrayList<Pizza> pizzas;
@@ -82,6 +85,11 @@ public class MainActivity extends AppCompatActivity{
         pizzas = new ArrayList<>();
         resourceId = new ArrayList<>();
         photosList = new ArrayList<>();
+        Name_for_basket = new ArrayList<>();
+        Size_for_basket  = new ArrayList<>();
+        Price_for_basket  = new ArrayList<>();
+        DLC_for_basket = new ArrayList<>();
+        Image_for_basket = new ArrayList<>();
     }
     void InsertDataToDB(){
         dataBasePizzaManager.InsertData(
@@ -140,5 +148,54 @@ public class MainActivity extends AppCompatActivity{
         pizza.setTwenty_four_weight(twenty_four_weight.get(i));
         pizza.setThirty_weight(thirty_weight.get(i));
         return pizza;
+    }
+    private int counter_of_baskets_pizza = 0;
+
+    public ArrayList<String> getName_for_basket() {
+        return Name_for_basket;
+    }
+
+    public void setName_for_basket(ArrayList<String> name_for_basket) {
+        Name_for_basket.addAll(name_for_basket);
+    }
+
+    public ArrayList<Integer> getImage_for_basket() {
+        return Image_for_basket;
+    }
+
+    public ArrayList<String> getSize_for_basket() {
+        return Size_for_basket;
+    }
+
+    public void setSize_for_basket(ArrayList<String> size_for_basket) {
+        Size_for_basket.addAll(size_for_basket);
+    }
+
+    public ArrayList<String> getPrice_for_basket() {
+        return Price_for_basket;
+    }
+
+    public void setPrice_for_basket(ArrayList<String> price_for_basket) {
+        Price_for_basket.addAll(price_for_basket);
+    }
+
+    public ArrayList<String> getDLC_for_basket() {
+        return DLC_for_basket;
+    }
+
+    public void setDLC_for_basket(ArrayList<String> dlc) {
+        DLC_for_basket.addAll(dlc);
+    }
+
+    public void setImage_for_basket(ArrayList<Integer> image_for_basket) {
+        Image_for_basket.addAll(image_for_basket);
+    }
+
+    public int getCounter_of_baskets_pizza() {
+        return counter_of_baskets_pizza;
+    }
+
+    public void setCounter_of_baskets_pizza(int counter_of_baskets_pizza) {
+        this.counter_of_baskets_pizza = counter_of_baskets_pizza;
     }
 }

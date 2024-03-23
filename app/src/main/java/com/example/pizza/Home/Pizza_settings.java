@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.pizza.Basket.BasketViewModel;
+import com.example.pizza.MainActivity;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.R;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
@@ -30,8 +31,10 @@ public class Pizza_settings extends Fragment{
     Pizza pizza;
     Pizza_settings_ViewModel pizzaSettingsViewModel;
     Context context;
-    String ei, twf, th;
     private NavController navController;
+    String tempPrice = "";
+    String tempSize = "";
+    String tempDLC = "e";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,7 @@ public class Pizza_settings extends Fragment{
         pizza = new Pizza();
         context = getContext();
     }
-//TODO Сделать редактироваие pizza_setings, сделать список выбраых товаров в корзине, страницу регистрации и страницу об авторе, дозаполнить БД
+//TODO Сделать редактироваие pizza_setings, страницу регистрации и страницу об авторе, дозаполнить БД
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
         binding = FragmentPizzaSettingsBinding.inflate(inflater, container, false);
@@ -47,19 +50,20 @@ public class Pizza_settings extends Fragment{
         root.findViewById(R.id.small_pizza).setOnClickListener(this::smallPizza);
         root.findViewById(R.id.medium_pizza).setOnClickListener(this::mediumPizza);
         root.findViewById(R.id.big_pizza).setOnClickListener(this::bigPizza);
-        ei = "18";
-        twf = "24";
-        th = "30";
 
         pizzaSettingsViewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
         UnpackingData();
-        SendDataToBasket();
 
         binding.AddToOrder.setOnClickListener(v -> {
             navController = Navigation.findNavController(
                     requireActivity(),
                     R.id.nav_host_fragment_activity_main
             );
+
+            ((MainActivity) this.requireActivity()).setCounter_of_baskets_pizza(
+                    ((MainActivity) this.requireActivity()).getCounter_of_baskets_pizza() + 1
+            );
+            SendDataToBasket();
             navController.navigate(R.id.action_pizza_settings_to_navigation_home);
         });
 
@@ -87,25 +91,33 @@ public class Pizza_settings extends Fragment{
 
     public void smallPizza(View view){
         binding.sizeAndWeight.setText("18 см " + pizza.getEighteen_weight());
+        tempSize = "18";
         binding.AddToOrder.setText("Заказать за " + pizza.getEighteen_price());
+        tempPrice = pizza.getEighteen_price();
     }
     public void mediumPizza(View view){
         binding.sizeAndWeight.setText("23 см " + pizza.getTwenty_four_weight());
+        tempSize = "24";
         binding.AddToOrder.setText("Заказать за " + pizza.getTwenty_four_price());
+        tempPrice = pizza.getTwenty_four_price();
     }
     public void bigPizza(View view){
-        binding.sizeAndWeight.setText("23 см " + pizza.getThirty_weight());
+        binding.sizeAndWeight.setText("30 см " + pizza.getThirty_weight());
+        tempSize = "30";
         binding.AddToOrder.setText("Заказать за " + pizza.getThirty_price());
+        tempPrice = pizza.getThirty_price();
     }
 
     void SendDataToBasket(){
-        BasketViewModel basketViewModel = new ViewModelProvider(requireActivity()).get(BasketViewModel.class);
+        BasketViewModel basketViewModel =
+                new ViewModelProvider(requireActivity()).get(BasketViewModel.class);
+
         basketViewModel.setData(
                 pizza.getName(),
                 pizza.getPicture(),
-                String.valueOf(binding.sizeAndWeight.getText()),
-                String.valueOf(binding.AddToOrder.getText()),
-                ""
+                String.valueOf(tempSize),
+                String.valueOf(tempPrice),
+                String.valueOf(tempDLC)
         );
     }
 }
