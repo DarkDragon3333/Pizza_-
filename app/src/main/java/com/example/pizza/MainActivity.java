@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.Home.HomeFragment_ViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.databinding.ActivityMainBinding;
@@ -20,16 +21,20 @@ public class MainActivity extends AppCompatActivity{
     ArrayList<String> id, name, recipe,
             eighteen_price, twenty_four_price, thirty_price,
             eighteen_weight, twenty_four_weight, thirty_weight;
-    public ArrayList<String>
-            Name_for_basket, Size_for_basket, Price_for_basket, DLC_for_basket;
-    public ArrayList<Integer>
-            Image_for_basket;
+    ArrayList<String>
+            Name_for_basket, Size_for_basket, Price_for_basket,
+            DLC_for_basket, num_in_layout_of_basket;
+    ArrayList<Integer>
+            Image_for_basket, resourceId, flag_of_RecyclerItem;
     DataBasePizzaManager dataBasePizzaManager;
     private ActivityMainBinding binding;
     ArrayList<Pizza> pizzas;
     ArrayList<Drawable> photosList ;
     String[] photoNames;
-    ArrayList<Integer> resourceId;
+    private int
+            counter_of_baskets_pizza = 0, counter_of_pizza_button_click = 0;
+
+    BasketViewModel basketViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +49,8 @@ public class MainActivity extends AppCompatActivity{
         DataToArrayLists();
         PackingData();
 
-        homeFragmentViewModel.setData(pizzas);
+        basketViewModel = new ViewModelProvider(this).get(BasketViewModel.class);
+        homeFragmentViewModel.setData(pizzas, basketViewModel);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -71,7 +77,9 @@ public class MainActivity extends AppCompatActivity{
                 binding.navView,
                 navController
         );
+
     }
+
     void InitialArrayLists(){
         id = new ArrayList<>();
         name = new ArrayList<>();
@@ -90,6 +98,15 @@ public class MainActivity extends AppCompatActivity{
         Price_for_basket  = new ArrayList<>();
         DLC_for_basket = new ArrayList<>();
         Image_for_basket = new ArrayList<>();
+        num_in_layout_of_basket = new ArrayList<>();
+        flag_of_RecyclerItem = new ArrayList<>();
+
+        for (int i = 0; i <21; i++){
+            flag_of_RecyclerItem.add(0);
+        }
+        for (int i = 0; i <21; i++){
+            num_in_layout_of_basket.add("0");
+        }
     }
     void InsertDataToDB(){
         dataBasePizzaManager.InsertData(
@@ -149,53 +166,21 @@ public class MainActivity extends AppCompatActivity{
         pizza.setThirty_weight(thirty_weight.get(i));
         return pizza;
     }
-    private int counter_of_baskets_pizza = 0;
 
-    public ArrayList<String> getName_for_basket() {
-        return Name_for_basket;
+    public ArrayList<String> getNum_in_layout_of_basket() {
+        return num_in_layout_of_basket;
     }
 
-    public void setName_for_basket(ArrayList<String> name_for_basket) {
-        Name_for_basket.addAll(name_for_basket);
+    public void setNum_in_layout_of_basket(int num, int position) {
+        this.num_in_layout_of_basket.add(position, String.valueOf(num));
     }
 
-    public ArrayList<Integer> getImage_for_basket() {
-        return Image_for_basket;
+    public void removeNum_in_layout_of_basket(int position){
+        this.num_in_layout_of_basket.remove(position);
     }
 
-    public ArrayList<String> getSize_for_basket() {
-        return Size_for_basket;
+    public void setFlag_of_RecyclerItem(int flag_of_RecyclerItem, int position) {
+        this.flag_of_RecyclerItem.add(position, flag_of_RecyclerItem);
     }
 
-    public void setSize_for_basket(ArrayList<String> size_for_basket) {
-        Size_for_basket.addAll(size_for_basket);
-    }
-
-    public ArrayList<String> getPrice_for_basket() {
-        return Price_for_basket;
-    }
-
-    public void setPrice_for_basket(ArrayList<String> price_for_basket) {
-        Price_for_basket.addAll(price_for_basket);
-    }
-
-    public ArrayList<String> getDLC_for_basket() {
-        return DLC_for_basket;
-    }
-
-    public void setDLC_for_basket(ArrayList<String> dlc) {
-        DLC_for_basket.addAll(dlc);
-    }
-
-    public void setImage_for_basket(ArrayList<Integer> image_for_basket) {
-        Image_for_basket.addAll(image_for_basket);
-    }
-
-    public int getCounter_of_baskets_pizza() {
-        return counter_of_baskets_pizza;
-    }
-
-    public void setCounter_of_baskets_pizza(int counter_of_baskets_pizza) {
-        this.counter_of_baskets_pizza = counter_of_baskets_pizza;
-    }
 }

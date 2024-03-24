@@ -13,21 +13,14 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.example.pizza.Basket.BasketViewModel;
-import com.example.pizza.MainActivity;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.R;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
 
-import java.util.ArrayList;
-
 public class Pizza_settings extends Fragment{
-
     private FragmentPizzaSettingsBinding binding;
-
     Pizza pizza;
     Pizza_settings_ViewModel pizzaSettingsViewModel;
     Context context;
@@ -35,6 +28,7 @@ public class Pizza_settings extends Fragment{
     String tempPrice = "";
     String tempSize = "";
     String tempDLC = "e";
+    BasketViewModel basketViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,27 +36,30 @@ public class Pizza_settings extends Fragment{
         pizza = new Pizza();
         context = getContext();
     }
-//TODO Сделать редактироваие pizza_setings, страницу регистрации и страницу об авторе, дозаполнить БД
+//TODO Cтраницу регистрации и страницу об авторе, дозаполнить БД, исправить баги
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
         binding = FragmentPizzaSettingsBinding.inflate(inflater, container, false);
+
         View root = binding.getRoot();
         root.findViewById(R.id.small_pizza).setOnClickListener(this::smallPizza);
         root.findViewById(R.id.medium_pizza).setOnClickListener(this::mediumPizza);
         root.findViewById(R.id.big_pizza).setOnClickListener(this::bigPizza);
 
         pizzaSettingsViewModel = new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
+        basketViewModel = pizzaSettingsViewModel.getBasketViewModel();
         UnpackingData();
+
 
         binding.AddToOrder.setOnClickListener(v -> {
             navController = Navigation.findNavController(
                     requireActivity(),
                     R.id.nav_host_fragment_activity_main
             );
-
-            ((MainActivity) this.requireActivity()).setCounter_of_baskets_pizza(
-                    ((MainActivity) this.requireActivity()).getCounter_of_baskets_pizza() + 1
+            basketViewModel.setCount_of_bascket_pizzas(
+                    basketViewModel.getCount_of_bascket_pizzas() + 1
             );
+
             SendDataToBasket();
             navController.navigate(R.id.action_pizza_settings_to_navigation_home);
         });
@@ -88,7 +85,6 @@ public class Pizza_settings extends Fragment{
         binding.recipe.setText(pizza.getRecipe());
         binding.AddToOrder.setText("Заказать за " + pizza.getTwenty_four_price());
     }
-
     public void smallPizza(View view){
         binding.sizeAndWeight.setText("18 см " + pizza.getEighteen_weight());
         tempSize = "18";
@@ -109,9 +105,6 @@ public class Pizza_settings extends Fragment{
     }
 
     void SendDataToBasket(){
-        BasketViewModel basketViewModel =
-                new ViewModelProvider(requireActivity()).get(BasketViewModel.class);
-
         basketViewModel.setData(
                 pizza.getName(),
                 pizza.getPicture(),

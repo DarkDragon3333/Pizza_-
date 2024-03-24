@@ -7,13 +7,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pizza.Basket.BasketViewModel;
+import com.example.pizza.MainActivity;
 import com.example.pizza.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.ViewHolder>{
 
@@ -21,15 +26,21 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
     Context context;
     public ArrayList<String> Name, Size, Price, DLC;
     public ArrayList<Integer> Image;
-    int counter, Counter_of_baskets_pizza;
-
+    int Counter_of_baskets_pizza;
+    private NavController navController;
+    ArrayList<String> num_of_recyclerItem;
+    String name_current_fragment = "", testName = "com.example.pizza.Basket.Basket";
+    BasketViewModel basketViewModel;
     public PizzaBasketAdapter(Context context,
                               ArrayList<String> name,
                               ArrayList<String> size,
                               ArrayList<String> price,
                               ArrayList<String> dlc,
                               ArrayList<Integer> image,
-                              int counter_of_baskets_pizza
+                              int counter_of_baskets_pizza,
+                              String name_current_fragment,
+                              ArrayList<String> num_of_recyclerItem,
+                              BasketViewModel basketViewModel
     ) {
         this.context = context;
         Name = name;
@@ -38,6 +49,9 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         DLC = dlc;
         Image = image;
         Counter_of_baskets_pizza = counter_of_baskets_pizza;
+        this.name_current_fragment = name_current_fragment;
+        this.num_of_recyclerItem = num_of_recyclerItem;
+        this.basketViewModel = basketViewModel;
     }
 
     @NonNull
@@ -51,21 +65,98 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PizzaBasketAdapter.ViewHolder holder, int position) {
-        counter = 1;
+        ArrayList<String> t = new ArrayList<>();
+        int[] counter;
+        final String[] temp = {""};
+
         holder.image_in_layout.setImageResource(Image.get(position));
         holder.name_in_layout.setText(Name.get(position));
         holder.size_in_layout.setText(Size.get(position));
         holder.price_in_layout.setText(Price.get(position));
         holder.DLC_in_layout.setText(DLC.get(position));
 
-        holder.num_in_layout.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "qwe", Toast.LENGTH_SHORT);
-            toast.show();
+        if(Objects.equals(
+                ((MainActivity) context).getNum_in_layout_of_basket().get(position), "0")
+        ){
+            holder.num_in_layout.setText(String.valueOf(1));
+            ((MainActivity) context).setFlag_of_RecyclerItem(1, position);
+            counter = new int[100];
+            counter[0] = 1;
+        }
+        else {
+            counter = new int[100];
+            t = ((MainActivity) context).getNum_in_layout_of_basket();
+            counter[0] = Integer.parseInt(String.valueOf(t.get(position)));
+            holder.num_in_layout.setText(String.valueOf(counter[0]));
+        }
+
+        holder.minus_in_layout.setOnClickListener(v -> {
+            temp[0] = String.valueOf(--counter[0]);
+            holder.num_in_layout.setText(temp[0]);
+            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);
+
+            if(Objects.equals(holder.num_in_layout.getText(), "0")){
+                removeItem(position, holder);
+            }
         });
+
         holder.plus_in_layout.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(v.getContext(), "qwe", Toast.LENGTH_SHORT);
-            toast.show();
+            temp[0] = String.valueOf(++counter[0]);
+            holder.num_in_layout.setText(temp[0]);
+            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);
         });
+
+        navController = Navigation.findNavController(
+                (MainActivity)context,
+                R.id.nav_host_fragment_activity_main
+        );
+
+        navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            //if(navDestination.getId() == R.id.navigation_home && Objects.equals(name_current_fragment, testName)){}
+        });
+    }
+
+    public void removeItem(int position, @NonNull PizzaBasketAdapter.ViewHolder holder){
+
+        ArrayList<String> tempName, tempSize, tempPrice, tempDLC, tempNum_in_layout;
+        ArrayList<Integer> tempImage;
+
+        holder.image_in_layout.setImageResource(0);
+        holder.name_in_layout.setText("");
+        holder.size_in_layout.setText("");
+        holder.price_in_layout.setText("");
+        holder.DLC_in_layout.setText("");
+        holder.num_in_layout.setText("");
+
+        tempName = basketViewModel.getName();
+        tempImage = basketViewModel.getImage();
+        tempSize = basketViewModel.getSize();
+        tempPrice = basketViewModel.getPrice();
+        tempDLC = basketViewModel.getDLC();
+        tempNum_in_layout = ((MainActivity) context).getNum_in_layout_of_basket();
+
+        tempName.remove(position);
+        tempImage.remove(position);
+        tempSize.remove(position);
+        tempPrice.remove(position);
+        tempDLC.remove(position);
+        tempNum_in_layout.remove(position);
+
+        basketViewModel.setName_pizza_of_basket(tempName);
+        basketViewModel.setImage_of_basket(tempImage);
+        basketViewModel.setSize_pizza_of_basket(tempSize);
+        basketViewModel.setPrice_pizza_of_basket(tempPrice);
+        basketViewModel.setDLC_pizza_of_basket(tempDLC);
+        basketViewModel.setCount_of_bascket_pizzas(
+                basketViewModel.getCount_of_bascket_pizzas() - 1
+        );
+        ((MainActivity) context).removeNum_in_layout_of_basket(position);
+
+        Name.remove(position);
+        Size.remove(position);
+        Price.remove(position);
+        DLC.remove(position);
+        Image.remove(position);
     }
 
     @Override

@@ -9,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.NavDirections;
 import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
@@ -33,6 +35,7 @@ public class HomeFragment extends Fragment {
     Context context;
     private FragmentHomeBinding binding;
     private NavController navController;
+    BasketViewModel basketViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class HomeFragment extends Fragment {
         HomeFragment_ViewModel homeFragmentViewModel =
                 new ViewModelProvider(requireActivity()).get(HomeFragment_ViewModel.class);
         pizzas.addAll(homeFragmentViewModel.getData());
+
+        basketViewModel = homeFragmentViewModel.getBasketViewModel();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
@@ -65,7 +70,7 @@ public class HomeFragment extends Fragment {
                 new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
 
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
-            pizzaSettingsViewModel.setData(Pizza);
+            pizzaSettingsViewModel.setData(Pizza, basketViewModel);
             navController.navigate(R.id.action_navigation_home_to_pizza_settings);
         };
 
