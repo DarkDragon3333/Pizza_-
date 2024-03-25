@@ -59,7 +59,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         return new ViewHolder(view);
     }
 
-    @Override
+    @Override //Получаем данные и соединяем с разметкой
     public void onBindViewHolder(@NonNull PizzaBasketAdapter.ViewHolder holder, int position) {
         ArrayList<String> t = new ArrayList<>();
         int[] counter = new int[1];
@@ -71,6 +71,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         holder.price_in_layout.setText(Price.get(position));
         holder.DLC_in_layout.setText(DLC.get(position));
 
+        //Если элемент создаётся впервые, то
         if(Objects.equals(((MainActivity) context).getNum_in_layout_of_basket().get(position), "0")
         ){
             holder.num_in_layout.setText(String.valueOf(1));
@@ -78,6 +79,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
             ((MainActivity) context).setNum_in_layout_of_basket(1, position);
             counter[0] = 1;
         }
+        //Иначе достаём сохранённые данные о кол-ве пицц
         else {
             t = ((MainActivity) context).getNum_in_layout_of_basket();
             counter[0] = Integer.parseInt(String.valueOf(t.get(position)));
@@ -97,7 +99,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         holder.plus_in_layout.setOnClickListener(v -> {
             temp[0] = String.valueOf(++counter[0]);
             holder.num_in_layout.setText(temp[0]);
-            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);
+            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);//Всё время запоминаю, какое значение поля
         });
 
     }
@@ -107,6 +109,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         ArrayList<String> tempName, tempSize, tempPrice, tempDLC, tempNum_in_layout;
         ArrayList<Integer> tempImage;
 
+        //Всё зануляем и удаляем данные  из массивов
         holder.image_in_layout.setImageResource(0);
         holder.name_in_layout.setText("");
         holder.size_in_layout.setText("");
@@ -157,6 +160,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         ImageView image_in_layout;
         TextView name_in_layout, price_in_layout, size_in_layout, DLC_in_layout, num_in_layout;
         Button minus_in_layout, plus_in_layout;
+        //Находим части разметки элемента списка
         ViewHolder(View itemView) {
             super(itemView);
             image_in_layout = itemView.findViewById(R.id.pizza_photo_in_basket);

@@ -66,17 +66,18 @@ public class HomeFragment extends Fragment {
 
     @NonNull
     private PizzaAdapter getPizzaAdapter() {
+        //Находим наше навигационную панель, которая внизу экрана
         navController = Navigation.findNavController(
                 requireActivity(),
                 R.id.nav_host_fragment_activity_main
         );
 
-        Pizza_settings_ViewModel pizzaSettingsViewModel =
+        Pizza_settings_ViewModel pizzaSettingsViewModel =//Создаём буффер для фрагмента Pizza_settings
                 new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
 
         PizzaAdapter.OnPizzaClickListener onPizzaClickListener = (Pizza, position) -> {
-            pizzaSettingsViewModel.setData(Pizza, basketViewModel);
-            navController.navigate(R.id.action_navigation_home_to_pizza_settings);
+            pizzaSettingsViewModel.setData(Pizza, basketViewModel);//Устанавливаем данные в буффер Pizza_settings
+            navController.navigate(R.id.action_navigation_home_to_pizza_settings); //Переключаем экран на фрагмент pizza_settings
         };
 
         return new PizzaAdapter(context, pizzas, onPizzaClickListener);

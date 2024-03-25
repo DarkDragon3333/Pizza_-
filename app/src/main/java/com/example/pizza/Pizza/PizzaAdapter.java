@@ -39,7 +39,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ViewHolder>{
         return new ViewHolder(view);
     }
 
-    @Override  //Получаем данные
+    @Override  //Получаем данные и соединяем с разметкой
     public void onBindViewHolder(PizzaAdapter.ViewHolder holder, int position) {
         Pizza pizza = pizzas.get(position);
         holder.flagView.setImageResource(pizza.getPicture());
@@ -61,6 +61,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.ViewHolder>{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView flagView;
         TextView name, recipe, twenty_four;
+        //Находим части разметки элемента списка
         ViewHolder(View view){
             super(view);
             flagView = view.findViewById(R.id.pizza_photo);

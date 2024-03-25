@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity{
         );
     }
 
-    void InitialArrayLists(){
+    void InitialArrayLists(){//ЗАНИМАЕМ МЕСТО ДЛЯ МАССИВОВ
         id = new ArrayList<>();
         name = new ArrayList<>();
         recipe = new ArrayList<>();
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity{
             num_in_layout_of_basket.add("0");
         }
     }
+    //Вставляем данные в БД
     void InsertDataToDB(){
         dataBasePizzaManager.InsertData(
                 0, "BBQ", "Сыр, кетчуп, колбаса, зелень, грибы",
@@ -141,6 +142,7 @@ public class MainActivity extends AppCompatActivity{
                 "300 гр", "500 гр", "750 гр"
         );
     }
+    //Извлекаем данные из курсора и вставляем в массивы для данных
     void DataToArrayLists(){
         Cursor cursor = dataBasePizzaManager.ReadData();//Берём строковые данные из БД с помощью объекта Cursor.
             while (cursor.moveToNext()){//Пока есть куда двигаться по БД
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
+    //Упаковываем данные для отправки
     void PackingData(){
         photoNames = getResources().getStringArray(R.array.drawable_photos);
         for (String photoName : photoNames) {
@@ -204,7 +207,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public boolean onSupportNavigateUp() {
-        onBackPressed(); // Здесь вызывается метод onBackPressed(), чтобы обработать нажатие кнопки назад
+        onBackPressed(); // Здесь вызывается метод onBackPressed(), чтобы обработать нажатие кнопки назад, которая находится наверху слева
         return true;
     }
 

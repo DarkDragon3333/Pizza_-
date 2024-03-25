@@ -54,6 +54,7 @@ public class Basket extends Fragment {
         context = getContext();//Где будет происходить действия
         Fragment currentFragment = this;//Экземпляр фрагменты корзины
 
+        //Находим наше навигационную панель, которая внизу экрана
         navController = Navigation.findNavController(
                 requireActivity(),
                 R.id.nav_host_fragment_activity_main
@@ -81,8 +82,10 @@ public class Basket extends Fragment {
         floatingActionButton = ((MainActivity) this.requireActivity()).floatingActionButton;
         Final_price = ((MainActivity) this.requireActivity()).finalPrice;
 
+        //Вызываем у навигационной панели обработчик нажатия
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if(navDestination.getId() == R.id.navigation_dashboard){
+                //Делаем кнопку заказа и поле итоговой цены активными
                 floatingActionButton.setEnabled(true);
                 floatingActionButton.setVisibility(View.VISIBLE);
                 Final_price.setVisibility(View.VISIBLE);
@@ -90,19 +93,23 @@ public class Basket extends Fragment {
         });
 
         floatingActionButton.setOnClickListener(v -> {
+            //Если зашли в корзину в первый раз и не выбрали пиццу, то
             if(viewModel.getFlag() == 0 ){
                 Toast toast = Toast.makeText(context, "Выберете пиццу", Toast.LENGTH_SHORT);
                 toast.show();
             }
+            //Иначе
             else {
                 Toast toast = Toast.makeText(context, "Заказ оформлен! Ожидайте.", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
 
+        //Вызываем у навигационной панели обработчик нажатия
         navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
             if(navDestination.getId() == R.id.navigation_home || navDestination.getId() == R.id.navigation_notifications ||
                     navDestination.getId() == R.id.about_author || navDestination.getId() == R.id.pizza_settings){
+                //Делаем кнопку заказа и поле итоговой цены неактивными
                 floatingActionButton.setEnabled(false);
                 floatingActionButton.setVisibility(View.INVISIBLE);
                 Final_price.setVisibility(View.INVISIBLE);
