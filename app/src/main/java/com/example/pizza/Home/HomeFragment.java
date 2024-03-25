@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,6 +58,7 @@ public class HomeFragment extends Fragment {
 
         PizzaAdapter pizzaAdapter = getPizzaAdapter();
         binding.listOfPizza.setAdapter(pizzaAdapter);
+
         return root;
     }
 
@@ -75,6 +77,9 @@ public class HomeFragment extends Fragment {
         };
 
         return new PizzaAdapter(context, pizzas, onPizzaClickListener);
+    }
+
+    public void ChoseDLC(){
     }
 
     void InitialArrayLists(){

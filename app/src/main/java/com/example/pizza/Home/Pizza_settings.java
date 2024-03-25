@@ -13,11 +13,15 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
 import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.R;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Pizza_settings extends Fragment{
     private FragmentPizzaSettingsBinding binding;
@@ -29,6 +33,9 @@ public class Pizza_settings extends Fragment{
     String tempSize = "";
     String tempDLC = "e";
     BasketViewModel basketViewModel;
+    String[] temp_string_for_DLC;
+    String help_for_DLC;
+    ArrayList<String> temp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,18 +57,39 @@ public class Pizza_settings extends Fragment{
         basketViewModel = pizzaSettingsViewModel.getBasketViewModel();
         UnpackingData();
 
-
         binding.AddToOrder.setOnClickListener(v -> {
-            navController = Navigation.findNavController(
-                    requireActivity(),
-                    R.id.nav_host_fragment_activity_main
-            );
-            basketViewModel.setCount_of_bascket_pizzas(
-                    basketViewModel.getCount_of_bascket_pizzas() + 1
-            );
+            Navigation();
+        });
 
-            SendDataToBasket();
-            navController.navigate(R.id.action_pizza_settings_to_navigation_home);
+        temp_string_for_DLC = new String[3];
+        temp_string_for_DLC[0] = " ";
+        temp_string_for_DLC[1] = " ";
+        temp_string_for_DLC[2] = " ";
+        temp = new ArrayList<>();
+
+        binding.moreSalami.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                temp_string_for_DLC[0] = "+ больше салями ";
+            }
+            else {
+                temp_string_for_DLC[0] = " ";
+            }
+        });
+        binding.bigDough.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                temp_string_for_DLC[1] = "+ толстые бортики ";
+            }
+            else {
+                temp_string_for_DLC[1] = " ";
+            }
+        });
+        binding.moreCheese.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked) {
+                temp_string_for_DLC[2] = "+ толстые сыра ";
+            }
+            else {
+                temp_string_for_DLC[2] = " ";
+            }
         });
 
         return root;
@@ -103,14 +131,35 @@ public class Pizza_settings extends Fragment{
         binding.AddToOrder.setText("Заказать за " + pizza.getThirty_price());
         tempPrice = pizza.getThirty_price();
     }
-
     void SendDataToBasket(){
+
+        for (String item : temp_string_for_DLC) {
+            if (item != null) {
+                temp.add(item);
+            }
+        }
+
         basketViewModel.setData(
                 pizza.getName(),
                 pizza.getPicture(),
                 String.valueOf(tempSize),
                 String.valueOf(tempPrice),
-                String.valueOf(tempDLC)
+                String.valueOf(temp).replaceAll("[\\[\\],]", "")
         );
+
+    }
+    public void Navigation(){
+        navController = Navigation.findNavController(
+                requireActivity(),
+                R.id.nav_host_fragment_activity_main
+        );
+        basketViewModel.setCount_of_bascket_pizzas(
+                basketViewModel.getCount_of_bascket_pizzas() + 1
+        );
+        SendDataToBasket();
+        navController.navigate(R.id.action_pizza_settings_to_navigation_home);
+    }
+    public void ChoseDLC(){
+
     }
 }

@@ -101,10 +101,10 @@ public class MainActivity extends AppCompatActivity{
         num_in_layout_of_basket = new ArrayList<>();
         flag_of_RecyclerItem = new ArrayList<>();
 
-        for (int i = 0; i <21; i++){
+        for (int i = 0; i <41; i++){
             flag_of_RecyclerItem.add(0);
         }
-        for (int i = 0; i <21; i++){
+        for (int i = 0; i <41; i++){
             num_in_layout_of_basket.add("0");
         }
     }
@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity{
         pizza.setThirty_weight(thirty_weight.get(i));
         return pizza;
     }
-
     public ArrayList<String> getNum_in_layout_of_basket() {
         return num_in_layout_of_basket;
     }

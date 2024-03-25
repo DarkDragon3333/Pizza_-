@@ -108,6 +108,59 @@
         </RadioGroup>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/control_switch_background_border"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/more_cheese"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/control_switch_background_selector"
+            android:textColor="@color/control_switch_color_selector"
+            android:text="Больше сыра\n 50Р" />
+
+        <CheckBox
+            android:id="@+id/big_dough"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/control_switch_background_selector"
+            android:textColor="@color/control_switch_color_selector"
+            android:text="Толстые бортики\n 100Р" />
+
+        <CheckBox
+            android:id="@+id/more_Salami"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:button="@null"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/control_switch_background_selector"
+            android:textColor="@color/control_switch_color_selector"
+            android:text="Больше салями\n 149Р" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/AddToOrder"
         android:layout_width="match_parent"
@@ -115,7 +168,6 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:text="Сделать заказ" />
-
 
 
 </LinearLayout>

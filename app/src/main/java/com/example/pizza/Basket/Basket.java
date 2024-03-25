@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class Basket extends Fragment {
 
     private BasketBinding binding;
+
     Context context;
     BasketViewModel viewModel;
     int count_of_basckets_pizzas = 0;
