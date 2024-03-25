@@ -11,6 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -158,8 +159,5 @@ public class Pizza_settings extends Fragment{
         );
         SendDataToBasket();
         navController.navigate(R.id.action_pizza_settings_to_navigation_home);
-    }
-    public void ChoseDLC(){
-
     }
 }

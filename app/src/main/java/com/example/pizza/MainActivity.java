@@ -182,4 +182,9 @@ public class MainActivity extends AppCompatActivity{
         this.flag_of_RecyclerItem.add(position, flag_of_RecyclerItem);
     }
 
+    public boolean onSupportNavigateUp() {
+        onBackPressed(); // Здесь вызывается метод onBackPressed(), чтобы обработать нажатие кнопки назад
+        return true;
+    }
+
 }
