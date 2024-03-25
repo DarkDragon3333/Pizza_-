@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pizza.Basket.BasketViewModel;
@@ -21,15 +19,13 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.ViewHolder>{
-
     private LayoutInflater inflater; //XML для данных
     Context context;
     public ArrayList<String> Name, Size, Price, DLC;
     public ArrayList<Integer> Image;
     int Counter_of_baskets_pizza;
-    private NavController navController;
     ArrayList<String> num_of_recyclerItem;
-    String name_current_fragment = "", testName = "com.example.pizza.Basket.Basket";
+    String name_current_fragment = "";
     BasketViewModel basketViewModel;
     public PizzaBasketAdapter(Context context,
                               ArrayList<String> name,
@@ -66,7 +62,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
     @Override
     public void onBindViewHolder(@NonNull PizzaBasketAdapter.ViewHolder holder, int position) {
         ArrayList<String> t = new ArrayList<>();
-        int[] counter;
+        int[] counter = new int[1];
         final String[] temp = {""};
 
         holder.image_in_layout.setImageResource(Image.get(position));
@@ -75,16 +71,14 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         holder.price_in_layout.setText(Price.get(position));
         holder.DLC_in_layout.setText(DLC.get(position));
 
-        if(Objects.equals(
-                ((MainActivity) context).getNum_in_layout_of_basket().get(position), "0")
+        if(Objects.equals(((MainActivity) context).getNum_in_layout_of_basket().get(position), "0")
         ){
             holder.num_in_layout.setText(String.valueOf(1));
             ((MainActivity) context).setFlag_of_RecyclerItem(1, position);
-            counter = new int[100];
+            ((MainActivity) context).setNum_in_layout_of_basket(1, position);
             counter[0] = 1;
         }
         else {
-            counter = new int[100];
             t = ((MainActivity) context).getNum_in_layout_of_basket();
             counter[0] = Integer.parseInt(String.valueOf(t.get(position)));
             holder.num_in_layout.setText(String.valueOf(counter[0]));
@@ -106,14 +100,6 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
             ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);
         });
 
-        navController = Navigation.findNavController(
-                (MainActivity)context,
-                R.id.nav_host_fragment_activity_main
-        );
-
-        navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
-            //if(navDestination.getId() == R.id.navigation_home && Objects.equals(name_current_fragment, testName)){}
-        });
     }
 
     public void removeItem(int position, @NonNull PizzaBasketAdapter.ViewHolder holder){
@@ -147,8 +133,8 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         basketViewModel.setSize_pizza_of_basket(tempSize);
         basketViewModel.setPrice_pizza_of_basket(tempPrice);
         basketViewModel.setDLC_pizza_of_basket(tempDLC);
-        basketViewModel.setCount_of_bascket_pizzas(
-                basketViewModel.getCount_of_bascket_pizzas() - 1
+        basketViewModel.setCount_of_basket_pizzas(
+                basketViewModel.getCount_of_basket_pizzas() - 1
         );
         ((MainActivity) context).removeNum_in_layout_of_basket(position);
 
@@ -159,10 +145,13 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         Image.remove(position);
     }
 
+
     @Override
     public int getItemCount() {
         return Counter_of_baskets_pizza;
     }
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image_in_layout;

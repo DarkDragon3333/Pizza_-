@@ -12,7 +12,7 @@ public class BasketViewModel extends ViewModel {
             Image_of_basket  = new ArrayList<>();
 
     public int flag = 0;
-    int Count_of_bascket_pizzas = 0;
+    int Count_of_basket_pizzas = 0;
 
     public void setData(String name, Integer image ,String size, String price, String dlc) {
         Name_pizza_of_basket.add(name);
@@ -70,20 +70,12 @@ public class BasketViewModel extends ViewModel {
     public ArrayList<String> getDLC() {
         return DLC_pizza_of_basket;
     }
-    public int getCount_of_bascket_pizzas() {
-        return Count_of_bascket_pizzas;
+    public int getCount_of_basket_pizzas() {
+        return Count_of_basket_pizzas;
     }
 
-    public void setCount_of_bascket_pizzas(int count_of_basckets_pizzas) {
-        Count_of_bascket_pizzas = count_of_basckets_pizzas;
+    public void setCount_of_basket_pizzas(int count_of_basckets_pizzas) {
+        Count_of_basket_pizzas = count_of_basckets_pizzas;
     }
-    void InitialArrayLists(){
-        Name_pizza_of_basket = new ArrayList<>();
-        Size_pizza_of_basket = new ArrayList<>();
-        Price_pizza_of_basket = new ArrayList<>();
-        DLC_pizza_of_basket = new ArrayList<>();
-        Image_of_basket = new ArrayList<>();
-    }
-
 
 }

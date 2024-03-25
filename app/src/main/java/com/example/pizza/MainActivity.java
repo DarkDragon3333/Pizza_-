@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
     public void setNum_in_layout_of_basket(int num, int position) {
-        this.num_in_layout_of_basket.add(position, String.valueOf(num));
+        this.num_in_layout_of_basket.set(position, String.valueOf(num));
     }
 
     public void removeNum_in_layout_of_basket(int position){

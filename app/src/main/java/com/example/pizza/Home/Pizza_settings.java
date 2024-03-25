@@ -1,6 +1,5 @@
 package com.example.pizza.Home;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
@@ -11,10 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 
 import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.Pizza.Pizza;
@@ -22,7 +19,6 @@ import com.example.pizza.R;
 import com.example.pizza.databinding.FragmentPizzaSettingsBinding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Pizza_settings extends Fragment{
     private FragmentPizzaSettingsBinding binding;
@@ -154,8 +150,8 @@ public class Pizza_settings extends Fragment{
                 requireActivity(),
                 R.id.nav_host_fragment_activity_main
         );
-        basketViewModel.setCount_of_bascket_pizzas(
-                basketViewModel.getCount_of_bascket_pizzas() + 1
+        basketViewModel.setCount_of_basket_pizzas(
+                basketViewModel.getCount_of_basket_pizzas() + 1
         );
         SendDataToBasket();
         navController.navigate(R.id.action_pizza_settings_to_navigation_home);
