@@ -125,12 +125,13 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:background="@drawable/control_switch_background_selector"
             android:button="@null"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/control_switch_background_selector"
+            android:gravity="center"
+            android:text="Больше сыра\n 50Р"
             android:textColor="@color/control_switch_color_selector"
-            android:text="Больше сыра\n 50Р" />
+            android:textSize="12sp" />
 
         <CheckBox
             android:id="@+id/big_dough"
@@ -139,12 +140,13 @@
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:layout_weight="1"
-            android:gravity="center"
+            android:background="@drawable/control_switch_background_selector"
             android:button="@null"
             android:fontFamily="sans-serif-medium"
-            android:background="@drawable/control_switch_background_selector"
+            android:gravity="center"
+            android:text="Толстые бортики\n 100Р"
             android:textColor="@color/control_switch_color_selector"
-            android:text="Толстые бортики\n 100Р" />
+            android:textSize="12sp" />
 
         <CheckBox
             android:id="@+id/more_Salami"
@@ -152,13 +154,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:button="@null"
             android:layout_weight="1"
-            android:gravity="center"
-            android:fontFamily="sans-serif-medium"
             android:background="@drawable/control_switch_background_selector"
+            android:button="@null"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="Больше салями\n 149Р"
             android:textColor="@color/control_switch_color_selector"
-            android:text="Больше салями\n 149Р" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <Button

@@ -37,10 +37,13 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.pizza.About_program.About_program"
+        android:name="com.example.pizza.About.About_program"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" >
 
+        <action
+            android:id="@+id/action_navigation_notifications_to_about_author"
+            app:destination="@id/about_author" />
     </fragment>
     <fragment
         android:id="@+id/pizza_settings"
@@ -50,5 +53,14 @@
         <action
             android:id="@+id/action_pizza_settings_to_navigation_home"
             app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_author"
+        android:name="com.example.pizza.About.About_author"
+        android:label="fragment_about_author"
+        tools:layout="@layout/fragment_about_author" >
+        <action
+            android:id="@+id/action_about_author_to_navigation_notifications"
+            app:destination="@id/navigation_notifications" />
     </fragment>
 </navigation>
