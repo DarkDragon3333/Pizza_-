@@ -4,10 +4,12 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 public class BasketViewModel extends ViewModel {
     private ArrayList<String>
-            Name_pizza_of_basket = new ArrayList<>(),
-            Size_pizza_of_basket = new ArrayList<>(),
-            Price_pizza_of_basket = new ArrayList<>(),
-            DLC_pizza_of_basket = new ArrayList<>();
+            Name_pizza_of_basket = new ArrayList<>();
+    private ArrayList<String> Size_pizza_of_basket = new ArrayList<>();
+
+
+    private ArrayList<String> Price_pizza_of_basket = new ArrayList<>();
+    private ArrayList<String> DLC_pizza_of_basket = new ArrayList<>();
     private ArrayList<Integer>
             Image_of_basket  = new ArrayList<>();
 
@@ -20,8 +22,13 @@ public class BasketViewModel extends ViewModel {
         Size_pizza_of_basket.add(size);
         Price_pizza_of_basket.add(price);
         DLC_pizza_of_basket.add(dlc);
-        flag = 1;
+        flag = 1;//Ограничитель
     }
+
+    public ArrayList<String> getPrice_pizza_of_basket() {
+        return Price_pizza_of_basket;
+    }
+
 
     public void setName_pizza_of_basket(ArrayList<String> name_pizza_of_basket) {
         Name_pizza_of_basket = name_pizza_of_basket;

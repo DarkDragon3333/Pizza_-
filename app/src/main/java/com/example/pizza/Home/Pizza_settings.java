@@ -28,10 +28,8 @@ public class Pizza_settings extends Fragment{
     private NavController navController;
     String tempPrice = "";
     String tempSize = "";
-    String tempDLC = "e";
     BasketViewModel basketViewModel;
     String[] temp_string_for_DLC;
-    String help_for_DLC;
     ArrayList<String> temp;
 
     @Override
@@ -40,12 +38,13 @@ public class Pizza_settings extends Fragment{
         pizza = new Pizza();
         context = getContext();
     }
-//TODO Cтраницу регистрации и страницу об авторе, дозаполнить БД, исправить баги
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle saveBundle) {
         binding = FragmentPizzaSettingsBinding.inflate(inflater, container, false);
 
         View root = binding.getRoot();
+
         root.findViewById(R.id.small_pizza).setOnClickListener(this::smallPizza);
         root.findViewById(R.id.medium_pizza).setOnClickListener(this::mediumPizza);
         root.findViewById(R.id.big_pizza).setOnClickListener(this::bigPizza);
@@ -129,7 +128,6 @@ public class Pizza_settings extends Fragment{
         tempPrice = pizza.getThirty_price();
     }
     void SendDataToBasket(){
-
         for (String item : temp_string_for_DLC) {
             if (item != null) {
                 temp.add(item);

@@ -19,7 +19,6 @@ public class Pizza_settings_ViewModel extends ViewModel {
     public Pizza getData() {
         return data;
     }
-
     public BasketViewModel getBasketViewModel() {
         return basketViewModel;
     }

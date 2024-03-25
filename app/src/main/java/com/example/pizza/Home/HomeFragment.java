@@ -41,10 +41,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         InitialArrayLists();
 
         HomeFragment_ViewModel homeFragmentViewModel =
                 new ViewModelProvider(requireActivity()).get(HomeFragment_ViewModel.class);
+
         pizzas.addAll(homeFragmentViewModel.getData());
 
         basketViewModel = homeFragmentViewModel.getBasketViewModel();
@@ -56,8 +58,8 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         context = getContext();
 
-        PizzaAdapter pizzaAdapter = getPizzaAdapter();
-        binding.listOfPizza.setAdapter(pizzaAdapter);
+        PizzaAdapter pizzaAdapter = getPizzaAdapter();//Вызываем адаптер, чтобы создать каталог пицц
+        binding.listOfPizza.setAdapter(pizzaAdapter);//Устанавливаем адаптер в список
 
         return root;
     }
@@ -68,6 +70,7 @@ public class HomeFragment extends Fragment {
                 requireActivity(),
                 R.id.nav_host_fragment_activity_main
         );
+
         Pizza_settings_ViewModel pizzaSettingsViewModel =
                 new ViewModelProvider(requireActivity()).get(Pizza_settings_ViewModel.class);
 
@@ -77,9 +80,6 @@ public class HomeFragment extends Fragment {
         };
 
         return new PizzaAdapter(context, pizzas, onPizzaClickListener);
-    }
-
-    public void ChoseDLC(){
     }
 
     void InitialArrayLists(){

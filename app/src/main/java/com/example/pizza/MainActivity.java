@@ -3,6 +3,9 @@ package com.example.pizza;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +18,8 @@ import com.example.pizza.Basket.BasketViewModel;
 import com.example.pizza.Home.HomeFragment_ViewModel;
 import com.example.pizza.Pizza.Pizza;
 import com.example.pizza.databinding.ActivityMainBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
@@ -35,30 +40,42 @@ public class MainActivity extends AppCompatActivity{
             counter_of_baskets_pizza = 0, counter_of_pizza_button_click = 0;
 
     BasketViewModel basketViewModel;
+    public FloatingActionButton floatingActionButton;
+    public TextView finalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         HomeFragment_ViewModel homeFragmentViewModel =
-                new ViewModelProvider(this).get(HomeFragment_ViewModel.class);
+                new ViewModelProvider(this).get(HomeFragment_ViewModel.class); //Создаём буффер для фрагмента Home_Fragment
 
-        dataBasePizzaManager = new DataBasePizzaManager(MainActivity.this);
+        dataBasePizzaManager = new DataBasePizzaManager(MainActivity.this); //Создаём нашу БД
 
-        InitialArrayLists();
-        InsertDataToDB();
-        DataToArrayLists();
-        PackingData();
+        InitialArrayLists();  //Указываем место, где будут хранится наши массивы
+        InsertDataToDB();  //Вставляем данные в базу данных
+        DataToArrayLists(); //Достаём данные из БД
+        PackingData(); //Покуем данные для отправки
 
-        basketViewModel = new ViewModelProvider(this).get(BasketViewModel.class);
-        homeFragmentViewModel.setData(pizzas, basketViewModel);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        basketViewModel = new ViewModelProvider(this).get(BasketViewModel.class);//Создаём буффер для фрагмента Basket_Fragment
+        homeFragmentViewModel.setData(pizzas, basketViewModel); //Отправляем в буфер Home_Fragment наши данные и экземпляр буффера Basket_Fragment
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());//Находим всю разметку
         setContentView(binding.getRoot());
+
+
+        floatingActionButton = findViewById(R.id.floatingActionButton);  //Создаём кнопку заказа
+        floatingActionButton.setEnabled(false);//Неактивна
+        floatingActionButton.setVisibility(View.INVISIBLE);//Невидима
+
+        finalPrice = findViewById(R.id.finalPrice);//Итоговая цена
+        finalPrice.setVisibility(View.INVISIBLE);//Невидима
     }
     @Override
     protected void onStart() {
         super.onStart();
-        AppBarConfiguration appBarConfiguration =
+        AppBarConfiguration appBarConfiguration =//Находим элементы для нашего меню. Их всего 3
                 new AppBarConfiguration.Builder(
                         R.id.navigation_home,
                         R.id.navigation_dashboard,
@@ -77,7 +94,6 @@ public class MainActivity extends AppCompatActivity{
                 binding.navView,
                 navController
         );
-
     }
 
     void InitialArrayLists(){
@@ -110,20 +126,25 @@ public class MainActivity extends AppCompatActivity{
     }
     void InsertDataToDB(){
         dataBasePizzaManager.InsertData(
-                0, "BBQ", "сыр",
-                "200", "299", "345",
-                "400", "600", "900"
+                0, "BBQ", "Сыр, кетчуп, колбаса, зелень, грибы",
+                "500", "699", "1345",
+                "500", "700", "900"
         );
         dataBasePizzaManager.InsertData(
-                1, "Margarita", "колбаса",
-                "300", "400", "500",
-                "1", "2", "3"
+                1, "Маргарита", "Сыр :Пармезан: колбаса :Солями:, зелень",
+                "500", "600", "900",
+                "400 гр", "600 гр", "850 гр"
+        );
+        dataBasePizzaManager.InsertData(
+                2, "Пиперонни", "Сыр :Пармезан: колбаса :Солями:, солённые огурцы",
+                "300", "500", "700",
+                "300 гр", "500 гр", "750 гр"
         );
     }
     void DataToArrayLists(){
-        Cursor cursor = dataBasePizzaManager.ReadData();//Берём строковые данные из БД
-            while (cursor.moveToNext()){
-                id.add(cursor.getString(0));
+        Cursor cursor = dataBasePizzaManager.ReadData();//Берём строковые данные из БД с помощью объекта Cursor.
+            while (cursor.moveToNext()){//Пока есть куда двигаться по БД
+                id.add(cursor.getString(0));//
                 name.add(cursor.getString(1));
                 recipe.add(cursor.getString(2));
                 eighteen_price.add(cursor.getString(3));
@@ -139,21 +160,21 @@ public class MainActivity extends AppCompatActivity{
         photoNames = getResources().getStringArray(R.array.drawable_photos);
         for (String photoName : photoNames) {
             resourceId.add(
-                    getResources().getIdentifier(
+                    getResources().getIdentifier(//Получаем по имени изображение изображение. Делали так в 4 практической работе
                         photoName,
                         "drawable",
                         getPackageName()
                     )
             );
         }
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i <= 2; i++){//В приложении всего 3 фотки. Поэтому 3 пиццы
             Pizza pizza = getPizza(i);
             pizzas.add(pizza);
         }
     }
     @NonNull
     private Pizza getPizza(int i) {
-        Pizza pizza = new Pizza();
+        Pizza pizza = new Pizza();//создаём объект пицца и дальше заполняем его полученными данными
         pizza.setId(id.get(i));
         pizza.setPicture(resourceId.get(i));
         pizza.setName(name.get(i));
@@ -164,7 +185,7 @@ public class MainActivity extends AppCompatActivity{
         pizza.setEighteen_weight(eighteen_weight.get(i));
         pizza.setTwenty_four_weight(twenty_four_weight.get(i));
         pizza.setThirty_weight(thirty_weight.get(i));
-        return pizza;
+        return pizza;//Получаем пиццу
     }
     public ArrayList<String> getNum_in_layout_of_basket() {
         return num_in_layout_of_basket;

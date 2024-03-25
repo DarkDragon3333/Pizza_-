@@ -87,7 +87,7 @@ public class PizzaBasketAdapter extends RecyclerView.Adapter<PizzaBasketAdapter.
         holder.minus_in_layout.setOnClickListener(v -> {
             temp[0] = String.valueOf(--counter[0]);
             holder.num_in_layout.setText(temp[0]);
-            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);
+            ((MainActivity) context).setNum_in_layout_of_basket(Integer.parseInt(temp[0]), position);//Всё время запоминаю, какое значение поля
 
             if(Objects.equals(holder.num_in_layout.getText(), "0")){
                 removeItem(position, holder);
