@@ -14,6 +14,11 @@
         <item>id1</item>
         <item>id2</item>
         <item>id3</item>
+    </array>
+    <array name="drawable_photosы">
+        <item>id1</item>
+        <item>id2</item>
+        <item>id3</item>
         <item>id4</item>
         <item>id5</item>
         <item>id6</item>

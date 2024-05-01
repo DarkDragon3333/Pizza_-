@@ -68,7 +68,7 @@ public class DataBasePizzaManager extends SQLiteOpenHelper {
         contentValues.put(TWENTY_FOUR_WEIGHT, twenty_four_weight);
         contentValues.put(THIRTY_WEIGHT, thirty_weight);
 
-        long result = db.insert(NAME_AND_PRICE, null, contentValues);
+        db.insert(NAME_AND_PRICE, null, contentValues);
     }
 
 }

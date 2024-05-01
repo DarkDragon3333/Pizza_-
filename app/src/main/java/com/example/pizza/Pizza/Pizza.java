@@ -1,10 +1,5 @@
 package com.example.pizza.Pizza;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import androidx.annotation.NonNull;
-
 import java.io.Serializable;
 
 public class Pizza implements Serializable {
@@ -33,14 +28,6 @@ public class Pizza implements Serializable {
         this.twenty_four_weight = twenty_four_weight;
         this.thirty_weight = thirty_weight;
         Picture = picture;
-    }
-
-    public String getDLC() {
-        return DLC;
-    }
-
-    public void setDLC(String DLC) {
-        this.DLC = DLC;
     }
 
     public String getId() {
